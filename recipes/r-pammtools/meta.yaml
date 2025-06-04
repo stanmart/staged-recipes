@@ -1,0 +1,86 @@
+{% set name = "pammtools" %}
+{% set version = "0.7.3" %}
+
+package:
+  name: r-{{ name }}
+  version: '{{ version }}'
+
+source:
+  url: https://cran.r-project.org/src/contrib/pammtools_{{ version }}.tar.gz
+  sha256: aa58cad6ec8298a4166c449ebf9d66ec0c6044a089bc2bca9a75a4679571ea73
+
+build:
+  number: 0
+  merge_build_host: true
+  script: R CMD INSTALL --build .
+  rpaths:
+    - lib/R/lib/
+    - lib/
+
+requirements:
+  host:
+    - r-Formula
+    - r-base
+    - r-checkmate
+    - r-dplyr >=1.0.0
+    - r-ggplot2 >=3.2.2
+    - r-lazyeval
+    - r-magrittr
+    - r-mgcv
+    - r-mvtnorm
+    - r-pec
+    - r-purrr >=0.2.3
+    - r-rlang
+    - r-scam
+    - r-survival >=2.39-5
+    - r-tibble
+    - r-tidyr >=1.0.0
+    - r-vctrs >=0.3.0
+  run:
+    - r-Formula
+    - r-base
+    - r-checkmate
+    - r-dplyr >=1.0.0
+    - r-ggplot2 >=3.2.2
+    - r-lazyeval
+    - r-magrittr
+    - r-mgcv
+    - r-mvtnorm
+    - r-pec
+    - r-purrr >=0.2.3
+    - r-rlang
+    - r-scam
+    - r-survival >=2.39-5
+    - r-tibble
+    - r-tidyr >=1.0.0
+    - r-vctrs >=0.3.0
+
+test:
+  commands:
+    - $R -e "library('pammtools')"  # [not win]
+    - "\"%R%\" -e \"library('pammtools')\""  # [win]
+
+about:
+  home: https://adibender.github.io/pammtools/
+  summary: Piece-wise exponential Additive Mixed Modeling tools
+  description: |
+    The Piece-wise exponential (Additive Mixed) Model (PAMM; Bender and others
+    (2018) <doi: 10.1177/1471082X17748083>) is a powerful model class for the
+    analysis of survival (or time-to-event) data, based on Generalized Additive
+    (Mixed) Models (GA(M)Ms). It offers intuitive specification and robust
+    estimation of complex survival models with stratified baseline hazards,
+    random effects, time-varying effects, time-dependent covariates and
+    cumulative effects (Bender and others (2019)), as well as support for
+    left-truncated data as well as competing risks, recurrent events and
+    multi-state settings. pammtools provides tidy workflow for survival analysis
+    with PAMMs, including data simulation, transformation and other functions
+    for data preprocessing and model post-processing as well as visualization.'
+  license: MIT
+  license_file: LICENSE.md
+  doc_url: https://adibender.github.io/pammtools/
+  dev_url: https://github.com/adibender/pammtools
+
+extra:
+  recipe-maintainers:
+    - stanmart
+    - PhilippKopperQC
